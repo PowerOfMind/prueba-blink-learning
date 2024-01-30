@@ -1,18 +1,23 @@
-[
-  {
-    "pregunta": "El esfuerzo constante solo aparece cuando contamos algo.",
-    "respuesta": true
-  },
-  {
-    "pregunta": "La tracción es un esfuerzo que tiende a estirar un objeto.",
-    "respuesta": true
-  },
-  {
-    "pregunta": "El esqueleto humano esta sometido básicamente al esfuerzo de compresión.",
-    "respuesta": false
-  },
-  {
-    "pregunta": "Un vaso de plástico no tiene ningun tipo de estructura.",
-    "respuesta": false
-  }
-]
+{
+  "temario": "Tecnología",
+  "bloque": "Estructuras III",
+  "enunciado": "Señala si son verdaderas o falsas las siguientes frases:",
+  "preguntas": [
+    {
+      "pregunta": "El esfuerzo constante solo aparece cuando contamos algo.",
+      "respuesta": true
+    },
+    {
+      "pregunta": "La tracción es un esfuerzo que tiende a estirar un objeto.",
+      "respuesta": true
+    },
+    {
+      "pregunta": "El esqueleto humano esta sometido básicamente al esfuerzo de compresión.",
+      "respuesta": false
+    },
+    {
+      "pregunta": "Un vaso de plástico no tiene ningun tipo de estructura.",
+      "respuesta": false
+    }
+  ]
+}

@@ -1,61 +1,65 @@
 import { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Container } from "react-bootstrap";
 import Test from "./components/test";
 
 const App = () => {
-  const [isFinish, setIsFinish] = useState(false);
   const [test, setTest] = useState(false);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState(null);
+  const [isTestFinished, setIsTestFinished] = useState(false);
+  const [userAnswers, setUserAnswers] = useState([]);
+  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     fetch("questions.json")
       .then((response) => response.json())
-      .then((data) => setQuestions(data))
-      .catch((error) => console.error(error));
+      .then((data) => {
+        setQuestions(data);
+        setAnswers(data.preguntas.map((question) => question.respuesta));
+      })
+      .catch(console.error);
   }, []);
 
-  const handleClick = () => {
-    setTest(true);
-  };
-
-  const handleFinish = () => {
-    setIsFinish(true);
+  const handleClick = () => setTest(true);
+  const handleTestFinish = (answers) => {
     setTest(false);
+    setIsTestFinished(true);
+    setUserAnswers(answers);
   };
 
-  const handleResult = () => {
+  const handleViewResults = () => {
+    console.log(userAnswers); // Aquí está el console.log
     setTest(true);
   };
+
 
   return (
-    <Container className="d-flex flex-column justify-content-center align-items-center vh-100">
+    <div className="container">
       {test ? (
         <Test
-          isFinish={isFinish}
           questions={questions}
-          handleFinish={handleFinish}
+          onTestFinish={handleTestFinish}
+          isTestFinished={isTestFinished}
+          userAnswersResults={userAnswers}
+          answers={answers}
         />
       ) : (
-        <div className="d-flex flex-column justify-content-center align-items-center vh-100">
-          <Button
-            variant="primary"
-            className="mb-3"
+        <div className="center">
+          <button
+            className="button"
             onClick={handleClick}
-            disabled={isFinish}
+            disabled={isTestFinished}
           >
             Realizar prueba
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={handleResult}
-            disabled={!isFinish}
+          </button>
+          <button
+            className="button"
+            onClick={handleViewResults}
+            disabled={!isTestFinished}
           >
-            Resultado del test
-          </Button>
+            Ver resultado
+          </button>
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 
