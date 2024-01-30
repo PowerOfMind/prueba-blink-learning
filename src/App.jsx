@@ -8,6 +8,7 @@ const App = () => {
   const [userAnswers, setUserAnswers] = useState([]);
   const [answers, setAnswers] = useState([]);
 
+  //* en este useEffect consumo el json con el contenido del test
   useEffect(() => {
     fetch("questions.json")
       .then((response) => response.json())
@@ -26,14 +27,15 @@ const App = () => {
   };
 
   const handleViewResults = () => {
-    console.log(userAnswers); // Aquí está el console.log
+    //? este log lo dejo comentado para hacer pruebas
+    //? console.log(userAnswers);
     setTest(true);
   };
 
 
   return (
     <div className="container">
-      {test ? (
+      {test && questions ? (
         <Test
           questions={questions}
           onTestFinish={handleTestFinish}

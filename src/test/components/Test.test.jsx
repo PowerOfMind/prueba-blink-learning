@@ -28,8 +28,9 @@ describe("Test", () => {
     );
   });
 
-  it("calls onTestFinish when a radio button is clicked", () => {
-    const { getByLabelText } = render(
+
+  it("does not call onTestFinish when the finish button is clicked and not all questions are answered", () => {
+    const { getByText } = render(
       <Test
         questions={mockQuestions}
         onTestFinish={mockOnTestFinish}
@@ -39,7 +40,7 @@ describe("Test", () => {
       />
     );
 
-    fireEvent.click(getByLabelText("Verdadero"));
-    expect(mockOnTestFinish).toHaveBeenCalled();
+    fireEvent.click(getByText("Finalizar"));
+    expect(mockOnTestFinish).not.toHaveBeenCalled();
   });
 });

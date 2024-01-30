@@ -8,6 +8,7 @@ const Test = ({
   userAnswersResults,
   answers,
 }) => {
+  //* inicializo este state asignandole el espacio que ocuparan las futuras respuestas del usuario
   const [userAnswers, setUserAnswers] = useState(
     Array(questions.preguntas.length).fill(null)
   );
@@ -23,22 +24,25 @@ const Test = ({
       // Si no, muestra un mensaje de error
       alert("Por favor, contesta todas las preguntas antes de continuar.");
     }
-  }
+  };
   const handleChange = (index, value) =>
     setUserAnswers((prevAnswers) => {
       const newAnswers = [...prevAnswers];
       newAnswers[index] = value;
       return newAnswers;
     });
-
-  console.log("resultados en test", userAnswersResults);
+  //? este log lo dejo comentado para hacer pruebas
+  //? console.log("resultados en test", userAnswersResults);
 
   return (
     <div className="container">
-      <h1>{questions.bloque}</h1>
-      <h2>{questions.temario}</h2>
+      <div className="encabezado">
+        <h4>{questions.bloque}</h4>
+        <h5>{questions.temario}</h5>
+      </div>
+
       <hr />
-      <h4>{questions.enunciado}</h4>
+      <h4 className="enunciado">{questions.enunciado}</h4>
       <br />
       {questions.preguntas.map((question, index) => (
         <div key={index} className="question">
@@ -56,7 +60,21 @@ const Test = ({
                 onChange={() => handleChange(index, true)}
                 checked={userAnswersResults[index] === true}
               />
-              <label htmlFor={`${index}-true`}>Verdadero</label>
+              <label
+                htmlFor={`${index}-true`}
+                style={
+                  userAnswersResults[index] === true
+                    ? {
+                        textDecoration: "underline",
+                        textDecorationStyle: "wavy",
+                        textDecorationColor:
+                          answers[index] === true ? "green" : "red",
+                      }
+                    : {}
+                }
+              >
+                Verdadero
+              </label>
               <input
                 className="checkbox"
                 type="radio"
@@ -66,7 +84,21 @@ const Test = ({
                 onChange={() => handleChange(index, false)}
                 checked={userAnswersResults[index] === false}
               />
-              <label htmlFor={`${index}-false`}>Falso</label>
+              <label
+                htmlFor={`${index}-false`}
+                style={
+                  userAnswersResults[index] === false
+                    ? {
+                        textDecoration: "underline",
+                        textDecorationStyle: "wavy",
+                        textDecorationColor:
+                          answers[index] === false ? "green" : "red",
+                      }
+                    : {}
+                }
+              >
+                Falso
+              </label>
             </div>
           ) : (
             <div>
@@ -86,18 +118,6 @@ const Test = ({
                 onChange={() => handleChange(index, false)}
               />
               <label htmlFor={`${index}-false`}>Falso</label>
-            </div>
-          )}
-          {isTestFinished && (
-            <div className="solucion" key={index}>
-              {userAnswersResults[index] == answers[index] ? (
-                <>
-                  <p>{userAnswersResults[index]}</p>
-                  <p>respuesta correcta</p>
-                </>
-              ) : (
-                <p>respuesta incorrecta</p>
-              )}
             </div>
           )}
         </div>
